@@ -1,8 +1,8 @@
-import {AfterViewInit, Component, DoCheck, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, DoCheck, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Room, RoomsList} from "./rooms";
 import {HeaderComponent} from "../header/header.component";
 import {RoomsService} from "./services/rooms.service";
-import {Observable} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {HttpEventType} from "@angular/common/http";
 
 @Component({
@@ -10,7 +10,7 @@ import {HttpEventType} from "@angular/common/http";
   templateUrl: './rooms.component.html',
   styleUrls: ['./rooms.component.scss']
 })
-export class RoomsComponent implements OnInit, DoCheck, AfterViewInit {
+export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, OnDestroy {
 
   constructor(private roomService: RoomsService) {
   }
@@ -24,6 +24,9 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit {
   selectedRoom!: RoomsList;
   title: string = '';
   totalBytes = 0;
+  subscription!: Subscription;
+
+  rooms$ = this.roomService.getRooms$;
 
   stream = new Observable(observer => {
     observer.next('user1');
@@ -42,7 +45,7 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit {
       next: (value) => console.log(value),
       complete: () => console.log('complete')
     })
-    this.roomService.getRooms().subscribe(rooms => {
+    this.roomService.getRooms$.subscribe(rooms => {
       this.roomLists = rooms;
     });
 
@@ -52,15 +55,15 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit {
           console.log('request has been made');
           break;
         }
-        case HttpEventType.ResponseHeader:{
+        case HttpEventType.ResponseHeader: {
           console.log('request success');
           break;
         }
-        case HttpEventType.DownloadProgress:{
+        case HttpEventType.DownloadProgress: {
           this.totalBytes += event.loaded;
           break;
         }
-        case HttpEventType.Response:{
+        case HttpEventType.Response: {
           console.log(event.body);
           break;
         }
@@ -120,5 +123,11 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit {
 
   ngAfterViewInit(): void {
     console.log(this.headerComponent)
+  }
+
+  ngOnDestroy(){
+    if (this.subscription){
+      this.subscription.unsubscribe();
+    }
   }
 }

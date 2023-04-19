@@ -18,7 +18,7 @@ import {RoomsList} from "../rooms";
 })
 export class RoomsListComponent implements OnInit, OnChanges {
 
-  @Input() rooms: RoomsList[] = [];
+  @Input() rooms: RoomsList[]| null = [];
 
   @Input() title: string = '';
 
