@@ -2,11 +2,19 @@
   <app-header></app-header>
   <button (click)="toggle()">Add title</button>
   <!--  {{roomlist | json}}-->
-
+{{totalBytes}}
   <app-rooms-list [title]="title" [rooms]="roomLists" (selectedRoom)="selectRoom($event)"></app-rooms-list>
 
   <div>
     <button (click)="addRoom()">Add Room</button>
+  </div>
+
+  <div>
+    <button (click)="updateRoom()">Update Room</button>
+  </div>
+
+  <div>
+    <button (click)="deleteRoom()">Delete Room</button>
   </div>
 
   <div *ngIf="selectedRoom">
