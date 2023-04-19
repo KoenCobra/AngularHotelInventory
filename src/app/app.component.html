@@ -1,6 +1,13 @@
-<app-rooms></app-rooms>
 <router-outlet></router-outlet>
 
 <div [ngSwitch]="role">
-  <div *ngSwitchCase="User"></div>
+  <div *ngSwitchCase="'User'">
+    Welcome User
+  </div>
+  <div *ngSwitchCase="'Admin'">
+    <app-rooms></app-rooms>
+  </div>
+  <div *ngSwitchDefault>
+    Not Authorized!
+  </div>
 </div>
