@@ -12,7 +12,7 @@
       <th>Amenities</th>
     </tr>
     <tbody>
-    <tr *ngFor="let room of roomlist; let e=even; let o=odd; let i = index">
+    <tr [ngClass]="e? 'even' : 'odd'" *ngFor="let room of roomlist; let e=even; let o=odd; let i = index">
       <td>{{i}}</td>
       <td>{{e ? "Even" : "Odd"}}</td>
       <td>{{room.roomType}}</td>

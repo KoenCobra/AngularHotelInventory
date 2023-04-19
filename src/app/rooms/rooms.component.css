@@ -1,3 +1,11 @@
+.even {
+  background-color: grey;
+  color: green;
+}
 
+.odd {
+  background-color: black;
+  color: white;
+}
 
 /*# sourceMappingURL=rooms.component.css.map */
