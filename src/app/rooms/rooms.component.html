@@ -3,6 +3,8 @@
   <button (click)="toggle()">Add title</button>
   <!--  {{roomlist | json}}-->
 <!--  {{rooms$ | async |json}}-->
+
+  {{getError$ |async}}
   <div *ngIf="rooms$ | async as rooms">
 
   <app-rooms-list [title]="title" [rooms]="rooms" (selectedRoom)="selectRoom($event)"></app-rooms-list>

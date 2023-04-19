@@ -2,7 +2,7 @@ import {AfterViewInit, Component, DoCheck, OnDestroy, OnInit, ViewChild} from '@
 import {Room, RoomsList} from "./rooms";
 import {HeaderComponent} from "../header/header.component";
 import {RoomsService} from "./services/rooms.service";
-import {Observable, Subscription} from "rxjs";
+import {catchError, Observable, of, Subject, Subscription} from "rxjs";
 import {HttpEventType} from "@angular/common/http";
 
 @Component({
@@ -25,8 +25,17 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, OnDestroy
   title: string = '';
   totalBytes = 0;
   subscription!: Subscription;
+  error$ =  new Subject<string>();
 
-  rooms$ = this.roomService.getRooms$;
+  getError$ = this.error$.asObservable();
+
+  rooms$ = this.roomService.getRooms$.pipe(
+    catchError((error) => {
+      console.log(error);
+      this.error$.next(error.message)
+      return of([])
+    })
+  );
 
   stream = new Observable(observer => {
     observer.next('user1');
