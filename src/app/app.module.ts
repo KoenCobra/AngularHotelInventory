@@ -8,6 +8,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {RoomsListComponent} from './rooms/rooms-list/rooms-list.component';
 import {HeaderComponent} from './header/header.component';
 import {APP_CONFIG, APP_SERVICE_CONFIG} from "./AppConfig/app.service";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import {APP_CONFIG, APP_SERVICE_CONFIG} from "./AppConfig/app.service";
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule
   ],
   providers: [{
     provide: APP_SERVICE_CONFIG,

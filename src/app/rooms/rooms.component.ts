@@ -2,6 +2,7 @@ import {AfterViewInit, Component, DoCheck, OnInit, ViewChild} from '@angular/cor
 import {Room, RoomsList} from "./rooms";
 import {HeaderComponent} from "../header/header.component";
 import {RoomsService} from "./services/rooms.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-rooms',
@@ -12,6 +13,7 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit {
 
   constructor(private roomService: RoomsService) {
   }
+
   room: Room = {
     totalRooms: 20,
     availableRooms: 10,
@@ -21,12 +23,26 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit {
   selectedRoom!: RoomsList;
   title: string = '';
 
+  stream = new Observable(observer => {
+    observer.next('user1');
+    observer.next('user2');
+    observer.next('user3');
+    observer.complete();
+    observer.error('error')
+  })
+
   toggle() {
     this.title = 'Rooms list'
   }
 
   ngOnInit(): void {
-    this.roomLists = this.roomService.getRooms();
+    this.stream.subscribe({
+      next: (value) => console.log(value),
+      complete: () => console.log('complete')
+    })
+    this.roomService.getRooms().subscribe(rooms => {
+      this.roomLists = rooms;
+    });
   }
 
   selectRoom(room: RoomsList) {
@@ -35,6 +51,8 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit {
 
   addRoom() {
     const room: RoomsList = {
+      roomNumber: '1',
+      rating: 4.3,
       roomType: '3',
       amenities: 'Air conditioner, Free Wi-Fi',
       price: 1500,

@@ -1,6 +1,9 @@
-import {Injectable} from '@angular/core';
+import {Inject, Injectable} from '@angular/core';
 import {RoomsList} from "../rooms";
 import {environment} from "../../../enviroments/environments";
+import {APP_SERVICE_CONFIG} from "../../AppConfig/app.service";
+import {AppConfig} from "../../AppConfig/appconfig.interface";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -8,37 +11,12 @@ import {environment} from "../../../enviroments/environments";
 
 export class RoomsService {
 
-  roomLists: RoomsList[] = [{
-    roomType: '1',
-    amenities: 'Air conditioner, Free Wi-Fi, TV, Bathroom',
-    price: 500,
-    checkinTime: new Date('11-nov-2021'),
-    checkoutTime: new Date('20-nov-2021'),
-    photos: 'https://thumbs.dreamstime.com/b/hotel-room-beautiful-orange-sofa-included-43642330.jpg'
-  },
-    {
-      roomType: '2',
-      amenities: 'Air conditioner, Free Wi-Fi, TV',
-      price: 900,
-      checkinTime: new Date('11-nov-2021'),
-      checkoutTime: new Date('20-nov-2021'),
-      photos: 'https://thumbs.dreamstime.com/b/hotel-room-beautiful-orange-sofa-included-43642330.jpg'
-    }
-    ,
-    {
-      roomType: '3',
-      amenities: 'Air conditioner, Free Wi-Fi',
-      price: 1500,
-      checkinTime: new Date('11-nov-2021'),
-      checkoutTime: new Date('20-nov-2021'),
-      photos: 'https://thumbs.dreamstime.com/b/hotel-room-beautiful-orange-sofa-included-43642330.jpg'
-    }];
+  roomLists: RoomsList[] = [];
 
-  constructor() {
-    console.log(environment.apiEndpoint);
+  constructor(private http: HttpClient) {
   }
 
   getRooms() {
-    return this.roomLists;
+    return this.http.get<RoomsList[]>('/api/rooms');
   }
 }
