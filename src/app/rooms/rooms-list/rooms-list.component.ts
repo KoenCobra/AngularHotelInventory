@@ -16,18 +16,23 @@ import {RoomsList} from "../rooms";
   styleUrls: ['./rooms-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RoomsListComponent implements OnInit, OnChanges{
+export class RoomsListComponent implements OnInit, OnChanges {
 
   @Input() rooms: RoomsList[] = [];
 
+  @Input() title: string = '';
+
   @Output() selectedRoom = new EventEmitter<RoomsList>();
 
-  selectRoom(room: RoomsList){
+  selectRoom(room: RoomsList) {
     this.selectedRoom.emit(room)
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes)
+    if (changes['title']) {
+      this.title = changes['title'].currentValue.toUpperCase();
+    }
   }
 
   ngOnInit(): void {

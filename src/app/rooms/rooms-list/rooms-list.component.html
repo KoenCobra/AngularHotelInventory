@@ -1,3 +1,7 @@
+<h2>
+  {{ title}}
+</h2>
+
 <table class="table">
   <tr>
     <th>Index</th>
@@ -18,7 +22,9 @@
     <td>{{room.checkinTime | date}}</td>
     <td>{{room.checkoutTime | date: 'short'}}</td>
     <td>{{room.amenities}}</td>
-    <td><button class="btn" (click)="selectRoom(room)">Select</button></td>
+    <td>
+      <button class="btn" (click)="selectRoom(room)">Select</button>
+    </td>
   </tr>
   </tbody>
 </table>

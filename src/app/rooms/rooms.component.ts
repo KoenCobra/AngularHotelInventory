@@ -18,6 +18,12 @@ export class RoomsComponent implements OnInit {
 
   selectedRoom!: RoomsList;
 
+  title: string = '';
+
+  toggle() {
+    this.title = 'Rooms list'
+  }
+
   ngOnInit(): void {
     this.roomlist = [{
       roomType: '1',

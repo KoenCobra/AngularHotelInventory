@@ -1,10 +1,8 @@
 <div class="container" *ngIf="room.availableRooms > 0">
-  Rooms list:
-
-
+  <button (click)="toggle()">Add title</button>
   <!--  {{roomlist | json}}-->
 
-  <app-rooms-list [rooms]="roomlist" (selectedRoom)="selectRoom($event)"></app-rooms-list>
+  <app-rooms-list [title]="title" [rooms]="roomlist" (selectedRoom)="selectRoom($event)"></app-rooms-list>
 
   <div>
     <button (click)="addRoom()">Add Room</button>
