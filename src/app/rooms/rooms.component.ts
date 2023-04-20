@@ -2,7 +2,7 @@ import {AfterViewInit, Component, DoCheck, OnDestroy, OnInit, ViewChild} from '@
 import {Room, RoomsList} from "./rooms";
 import {HeaderComponent} from "../header/header.component";
 import {RoomsService} from "./services/rooms.service";
-import {catchError, Observable, of, Subject, Subscription} from "rxjs";
+import {catchError, map, Observable, of, Subject, Subscription} from "rxjs";
 import {HttpEventType} from "@angular/common/http";
 
 @Component({
@@ -36,6 +36,10 @@ export class RoomsComponent implements OnInit, DoCheck, AfterViewInit, OnDestroy
       return of([])
     })
   );
+
+  roomsCount$ = this.roomService.getRooms$.pipe(
+    map((rooms) => rooms.length));
+
 
   stream = new Observable(observer => {
     observer.next('user1');

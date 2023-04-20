@@ -2,12 +2,12 @@
   <app-header></app-header>
   <button (click)="toggle()">Add title</button>
   <!--  {{roomlist | json}}-->
-<!--  {{rooms$ | async |json}}-->
-
+  <!--  {{rooms$ | async |json}}-->
+  <h1>number of rooms: {{roomsCount$ | async}}</h1>
   {{getError$ |async}}
   <div *ngIf="rooms$ | async as rooms">
 
-  <app-rooms-list [title]="title" [rooms]="rooms" (selectedRoom)="selectRoom($event)"></app-rooms-list>
+    <app-rooms-list [title]="title" [rooms]="rooms" (selectedRoom)="selectRoom($event)"></app-rooms-list>
   </div>
 
   <div>
