@@ -11,26 +11,18 @@ import {shareReplay} from "rxjs";
 })
 
 export class RoomsService {
-  header = new HttpHeaders({
-    'token': '12345'
-  })
   roomLists: RoomsList[] = [];
 
   constructor(private http: HttpClient) {
   }
 
-  getRooms$ = this.http.get<RoomsList[]>('/api/rooms',
-    {headers: this.header})
+  getRooms$ = this.http.get<RoomsList[]>('/api/rooms')
     .pipe(
       shareReplay(1)
     );
 
   getRooms() {
-    const header = new HttpHeaders({
-      'token': '12345'
-    })
-    return this.http.get<RoomsList[]>('/api/rooms',
-      {headers: header});
+    return this.http.get<RoomsList[]>('/api/rooms');
   }
 
   addRoom(room: RoomsList) {
