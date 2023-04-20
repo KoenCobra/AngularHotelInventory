@@ -11,6 +11,7 @@ const routes: Routes = [
   {path: 'employee', component: EmployeeComponent},
   {path: 'rooms', loadChildren: () => import('./rooms/rooms.module').then((m) => m.RoomsModule)},
   {path: '', redirectTo: '/rooms', pathMatch: 'full'},
+  { path: 'booking', loadChildren: () => import('./booking/booking.module').then(m => m.BookingModule) },
   {path: '**', component: NotfoundComponent}
 ];
 
