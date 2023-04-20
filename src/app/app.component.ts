@@ -1,5 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {localstorageToken} from "./localstorage.token";
+import {InitService} from "./init.service";
 
 @Component({
   selector: 'app-root',
@@ -11,8 +12,9 @@ export class AppComponent implements OnInit {
 
   role = 'User';
 
-  constructor(@Inject(localstorageToken) private localStorage: Storage) {
-
+  constructor(@Inject(localstorageToken) private localStorage: Storage,
+              private initService: InitService) {
+    console.log(initService.config)
   }
 
   ngOnInit(): void {
